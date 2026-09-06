@@ -7,7 +7,7 @@
 ```text
 项目根目录/
 ├── AGENTS.md                    # 稳定入口：角色/领域/行为规范/规则/安全/参考索引（低频更新，可跨项目复用）
-├── CLAUDE.md                    # Claude Code 兼容入口（@ 引用 AGENTS.md，随会话自动加载）
+├── CLAUDE.md                    # Claude Code 兼容入口（一行引用 AGENTS.md）
 ├── README.md                    # 本文件：框架索引、引用关系、初始化流程、维护纪律
 ├── ref/                         # 动态参考文档（随项目推进持续更新）
 │   ├── project.md               # 项目总览：背景/粗目标/粗需求/Idea/粗规划/环境概览（低频）
@@ -61,7 +61,7 @@ ref/requirements.md ⇄ ref/RTM.md（需求追踪状态回填）
 ## 新项目初始化流程（复用本框架时）
 
 1. 复制本目录（AGENTS.md + ref/ + doc/）到新项目根目录；删除用不到的「可选」文档。
-2. 更新 `AGENTS.md` 第 0 节「项目标识」；按需修订「8. 参考文档索引」。
+2. 更新 `AGENTS.md` 第 0 节「项目标识」；按需修订「6. 参考文档索引」。
 3. 依次初始化 `ref/project.md` → `ref/requirements.md` → `ref/environments.md` → `ref/plan.md`（需要时拆分 `workflow.md` / `design_spec.md` / `test_plan.md` / `execution_plan.md`）。
 4. 开工后维护 `ref/progress.md`、`ref/issues.md`、`ref/risks.md`、`ref/RTM.md`；里程碑完成更新 `doc/technical_manual.md`。
 
