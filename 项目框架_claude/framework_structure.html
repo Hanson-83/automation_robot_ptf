@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通用项目管理框架（claude 版） · 结构与引用关系</title>
+<style>
+  :root{
+    --bg:#F4F3EE; --ink:#2b2b2b; --muted:#6b6b6b; --line:#9aa0a6;
+    --g1:#dfe7f3; --g1b:#5b7cb5;   /* 稳定入口 */
+    --g2:#e3f0e4; --g2b:#5a9a63;   /* 核心参考 */
+    --g3:#fbe8d8; --g3b:#c98a4b;   /* 动态追踪 */
+    --g4:#efe6f4; --g4b:#8a6bb0;   /* 可选 */
+    --g5:#f6e2e2; --g5b:#b56060;   /* 交付 */
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;padding:28px}
+  h1{font-size:20px;margin:0 0 4px}
+  p.sub{color:var(--muted);margin:0 0 20px;font-size:13px}
+  .board{display:flex;flex-direction:column;gap:16px;max-width:1080px}
+  .group{border-radius:12px;padding:14px 16px}
+  .group h2{font-size:14px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .row{display:flex;flex-wrap:wrap;gap:10px}
+  .node{background:#fff;border:2px solid var(--line);border-radius:9px;
+        padding:8px 12px;min-width:150px;font-size:13px;line-height:1.35}
+  .node b{display:block;font-size:13px}
+  .node span{color:var(--muted);font-size:11px}
+  .node.optional{border-style:dashed}
+  .g1 .node{border-color:var(--g1b)} .g2 .node{border-color:var(--g2b)}
+  .g3 .node{border-color:var(--g3b)} .g4 .node{border-color:var(--g4b)}
+  .g5 .node{border-color:var(--g5b)}
+  .g1{background:var(--g1)} .g2{background:var(--g2)}
+  .g3{background:var(--g3)} .g4{background:var(--g4)} .g5{background:var(--g5)}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:12px;color:var(--muted)}
+  .legend .item{display:flex;align-items:center;gap:6px}
+  .swatch{width:26px;height:0;border-top:2px solid var(--line)}
+  .swatch.dash{border-top-style:dashed}
+  .swatch.box{height:14px;width:14px;border:2px solid var(--line);border-radius:4px}
+  .caption{margin-top:16px;font-size:12px;color:var(--muted);max-width:1080px;line-height:1.6}
+  .flow{font-size:12px;color:var(--g1b);font-weight:600;margin:2px 0 12px}
+</style>
+</head>
+<body>
+  <h1>通用项目管理框架（claude 版） · 结构与引用关系</h1>
+  <p class="sub">综合 doubao / qwen · 核心 14 文档 + 可选 4 文档 + 框架元 3 文件 · 实线框=必选，虚线框=可选</p>
+
+  <div class="board">
+
+    <div class="group g1">
+      <h2><span class="dot" style="background:var(--g1b)"></span>稳定入口（规则 SSOT · 低频）</h2>
+      <div class="row">
+        <div class="node"><b>AGENTS.md</b><span>权威规范 · 角色/领域/行为/规则/安全/文档地图</span></div>
+        <div class="node"><b>CLAUDE.md</b><span>Claude Code 薄入口（@AGENTS.md）</span></div>
+        <div class="node"><b>ref/workflow.md</b><span>生命周期/阶段门/必停点/委派</span></div>
+      </div>
+      <div class="flow">工作闭环：探查 → 约束 → 证据 → 执行 → 验证 → 交付</div>
+    </div>
+
+    <div class="group g2">
+      <h2><span class="dot" style="background:var(--g2b)"></span>核心参考（项目输入 · 低/中频）</h2>
+      <div class="row">
+        <div class="node"><b>ref/project.md</b><span>宪章/背景/分层目标/文档索引</span></div>
+        <div class="node"><b>ref/requirements.md</b><span>FR/NFR/约束/变更 → 下游</span></div>
+        <div class="node"><b>ref/environments.md</b><span>环境/平台矩阵/网络/凭据指引</span></div>
+        <div class="node"><b>ref/plan.md</b><span>方案/ADR/里程碑/WBS/委派</span></div>
+      </div>
+    </div>
+
+    <div class="group g3">
+      <h2><span class="dot" style="background:var(--g3b)"></span>动态追踪（过程 · 高频/按需）</h2>
+      <div class="row">
+        <div class="node"><b>ref/progress.md</b><span>状态/任务/风险摘要/日志（会话必读）</span></div>
+        <div class="node"><b>ref/issues.md</b><span>问题清单 bug/阻塞/疑问/债</span></div>
+        <div class="node"><b>ref/operation_log.md</b><span>高风险操作审计</span></div>
+        <div class="node"><b>ref/lessons_learned.md</b><span>经验教训</span></div>
+        <div class="node"><b>ref/handover.md</b><span>交接（倒序追加）</span></div>
+      </div>
+    </div>
+
+    <div class="group g4">
+      <h2><span class="dot" style="background:var(--g4b)"></span>可选（不用即删 / 变大再拆 · 按需）</h2>
+      <div class="row">
+        <div class="node optional"><b>ref/risks.md</b><span>独立风险登记册（拆自 progress 风险摘要）</span></div>
+        <div class="node optional"><b>ref/RTM.md</b><span>需求追踪矩阵（中大型项目）</span></div>
+        <div class="node optional"><b>ref/design_spec.md</b><span>详细设计（拆自 plan）</span></div>
+        <div class="node optional"><b>ref/test_plan.md</b><span>测试规划（拆自 plan）</span></div>
+      </div>
+    </div>
+
+    <div class="group g5">
+      <h2><span class="dot" style="background:var(--g5b)"></span>交付沉淀（里程碑/按需）</h2>
+      <div class="row">
+        <div class="node"><b>doc/technical_manual.md</b><span>里程碑滚动技术手册 + 迁移指导</span></div>
+        <div class="node"><b>doc/topic_report.md</b><span>专题/调研报告模板（复制改名用）</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="swatch box"></span>实线框 = 必选文档</div>
+    <div class="item"><span class="swatch box dash"></span>虚线框 = 可选文档</div>
+    <div class="item"><span class="swatch"></span>引用/派生关系</div>
+    <div class="item"><span class="swatch dash"></span>可选拆分关系</div>
+  </div>
+
+  <p class="caption">
+    读图：<b>稳定入口</b>定义规则与流程（跨项目复用，迁移时基本不改）；<b>核心参考</b>是项目输入，
+    自上而下 project → requirements → plan 逐级细化；<b>动态追踪</b>在执行中高频更新，progress.md 为状态单一事实源；
+    <b>可选</b>文档默认内联在上游（如 risks 内联 progress、design_spec/test_plan 内联 plan），规模变大时再拆出；
+    <b>交付沉淀</b>在里程碑产出。所有事实遵循 SSOT——只存在于一个文档，其余以相对链接引用。
+  </p>
+</body>
+</html>
